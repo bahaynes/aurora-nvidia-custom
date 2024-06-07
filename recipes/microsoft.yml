@@ -1,0 +1,5 @@
+type: rpm-ostree
+repos:
+  - https://packages.microsoft.com/yumrepos/edge
+install:
+  - microsoft-edge-stable
