@@ -19,6 +19,9 @@ modules:
   - type: rpm-ostree
     repos:
       # - https://copr.fedorainfracloud.org/coprs/atim/starship/repo/fedora-%OS_VERSION%/atim-starship-fedora-%OS_VERSION%.repo
+      - https://downloads.1password.com/linux/rpm/stable/x86_64
+    keys:
+      - https://downloads.1password.com/linux/keys/1password.asc
     install:
       - git
       - git-lfs
@@ -26,7 +29,7 @@ modules:
       - opensc
       - nm-connection-editor
       - screen
-      - okular
+      - 1password
     remove:
       # example: removing firefox (in favor of the flatpak)
       # "firefox" is the main package, "firefox-langpacks" is a dependency
@@ -41,6 +44,12 @@ modules:
       # repo-name: flathub
       # repo-title: "Flathub (system-wide)" # Optional; this sets the remote's user-facing name in graphical frontends like GNOME Software
       install:
+        - org.kde.okular
+        - org.kde.ktimetracker
+        - org.kde.kile
+        - org.kde.kgraphviewer
+        - org.kde.kdenlive
+        - org.kde.isoimagewriter
         # - org.mozilla.firefox
         # - org.gnome.Loupe
         # - one.ablaze.floorp//lightning # This is an example of flatpak which has multiple branches in selection (flatpak//branch).

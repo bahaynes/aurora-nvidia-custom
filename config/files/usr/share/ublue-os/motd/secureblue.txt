@@ -5,3 +5,5 @@ Commands:
 | `ujust toggle-user-motd` | Toggle this banner on/off |
 
 "I've read & consent to terms in IS user agreem't."
+
+%TIP%
