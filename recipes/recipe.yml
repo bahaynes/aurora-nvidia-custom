@@ -32,7 +32,10 @@ modules:
       # - firefox
       # - firefox-langpacks # also remove firefox dependency (not required for all packages, this is a special case)
 
-  - from-file: 1password.yml
+  - type: bling
+    install:
+      - 1password
+      - laptop
 
   - type: default-flatpaks
     notify: true # Send notification after install/uninstall is finished (true/false)
