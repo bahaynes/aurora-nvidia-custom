@@ -47,7 +47,6 @@ modules:
         - org.kde.okular
         - org.kde.ktimetracker
         - org.kde.kile
-        - org.kde.kgraphviewer
         - org.kde.kdenlive
         - org.kde.isoimagewriter
         # - org.mozilla.firefox
