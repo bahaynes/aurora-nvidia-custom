@@ -24,6 +24,7 @@ modules:
       - git-lfs
       - git-credential-libsecret
       - opensc
+      - firefox
       - nm-connection-editor
       - screen
       - zsh-autosuggestions
