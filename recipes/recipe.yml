@@ -26,7 +26,6 @@ modules:
       - opensc
       - firefox
       - gstreamer1-plugin-openh264
-      - mozilla-openh264  
       - nm-connection-editor
       - screen
       - zsh-autosuggestions
