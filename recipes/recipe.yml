@@ -18,6 +18,8 @@ modules:
 
   - type: rpm-ostree
     repos:
+      - https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-%OS_VERSION%.noarch.rpm
+      - https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-%OS_VERSION%.noarch.rpm
       # - https://copr.fedorainfracloud.org/coprs/atim/starship/repo/fedora-%OS_VERSION%/atim-starship-fedora-%OS_VERSION%.repo
     install:
       - git
@@ -25,6 +27,7 @@ modules:
       - git-credential-libsecret
       - opensc
       - firefox
+      - mozilla-openh264
       - gstreamer1-plugin-openh264
       - nm-connection-editor
       - screen
