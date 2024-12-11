@@ -1,3 +1,6 @@
+---
+# yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
+
 # image will be published to ghcr.io/<user>/<name>
 name: aurora-nvidia-custom
 # description will be included in the image's metadata
@@ -17,8 +20,8 @@ modules:
                             # in /usr/etc/ in the image. read more in files module reference.
 
   - type: rpm-ostree
-    repos:
-      # - https://copr.fedorainfracloud.org/coprs/atim/starship/repo/fedora-%OS_VERSION%/atim-starship-fedora-%OS_VERSION%.repo
+    # repos:
+    #   - https://copr.fedorainfracloud.org/coprs/atim/starship/repo/fedora-%OS_VERSION%/atim-starship-fedora-%OS_VERSION%.repo
     install:
       - git
       - git-lfs
@@ -31,7 +34,7 @@ modules:
       - zsh-syntax-highlighting
       - libxml2 # Ansible requirement
       - libxslt # Ansible requirement
-    remove:
+    # remove:
       # example: removing firefox (in favor of the flatpak)
       # "firefox" is the main package, "firefox-langpacks" is a dependency
       # - firefox
@@ -60,10 +63,8 @@ modules:
       # Flatpak runtimes are not supported (like org.winehq.Wine//stable-23.08),
       # only normal flatpak applications are (like Floorp Lightning web browser in this example).
       # Installing different branches of the same Flatpak is not supported.
-      remove:
-      # - org.gnome.eog
-
-  - type: signing # this sets up the proper policy & signing files for signed images to work fully
+      # remove:
+      # # - org.gnome.eog
 
   - type: fonts
     fonts:
@@ -77,7 +78,10 @@ modules:
       google-fonts:
         - Roboto
         - Open Sans
+
   - type: systemd
     user:
       enabled:
         - podman.socket
+
+  - type: signing # this sets up the proper policy & signing files for signed images to work fully
