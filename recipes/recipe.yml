@@ -35,6 +35,8 @@ modules:
       - libxslt # Ansible requirement
       - python3.12
       - microsoft-edge-stable
+    optfix:
+      - microsoft
 
   - type: bling
     install:
