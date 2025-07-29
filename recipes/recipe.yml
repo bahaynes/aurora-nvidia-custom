@@ -16,7 +16,7 @@ modules:
   - type: files
     files:
       - source: system      # copies files/system/ into your image's /.
-        destination: /      # put configuration files you want in /etc/ on a booted system 
+        destination: /      # put configuration files you want in /etc/ on a booted system
 
   - type: rpm-ostree
     repos:
@@ -43,20 +43,20 @@ modules:
       - 1password
 
   - type: default-flatpaks
-    notify: true # Send notification after install/uninstall is finished (true/false)
-    system:
-      # If no repo information is specified, Flathub will be used by default
-      # repo-url: https://dl.flathub.org/repo/flathub.flatpakrepo
-      # repo-name: flathub
-      # repo-title: "Flathub (system-wide)" # Optional; this sets the remote's user-facing name in graphical frontends like GNOME Software
-      install:
+    configurations:
+    - scope: user
+      repo:
+        # you can override the title to make inclusion of both system and user repos clearer
+        title: Flathub (user)
+    - notify: true
+      scope: system
+      repo:
+        title: Flathub (system)
+      install: # system flatpaks we want all users to have and not remove    install:
         - org.kde.okular
-        - org.kde.ktimetracker
         - org.kde.kile
         - org.kde.kdenlive
         - org.kde.isoimagewriter
-        # - org.mozilla.firefox
-        # - org.gnome.Loupe
         # - one.ablaze.floorp//lightning # This is an example of flatpak which has multiple branches in selection (flatpak//branch).
       # Flatpak runtimes are not supported (like org.winehq.Wine//stable-23.08),
       # only normal flatpak applications are (like Floorp Lightning web browser in this example).
