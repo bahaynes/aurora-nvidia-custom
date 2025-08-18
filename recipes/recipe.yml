@@ -33,6 +33,7 @@ modules:
       - zsh-syntax-highlighting
       - libxml2 # Ansible requirement
       - libxslt # Ansible requirement
+      - sshpass
       - python3.12
       - microsoft-edge-stable
     optfix:
