@@ -26,6 +26,9 @@ modules:
       - git-lfs
       - git-credential-libsecret
       - opensc
+      - pcsc-lite
+      - pcsc-tools
+      - ccid
       - firefox
       - nm-connection-editor
       - screen
