@@ -22,23 +22,24 @@ modules:
     repos:
       - microsoft-edge.repo
     install:
+      - ccid
+      - firefox
       - git
-      - git-lfs
       - git-credential-libsecret
+      - git-lfs
+      - libxml2 # Ansible requirement
+      - libxslt # Ansible requirement
+      - microsoft-edge-stable
+      - nm-connection-editor
       - opensc
       - pcsc-lite
       - pcsc-tools
-      - ccid
-      - firefox
-      - nm-connection-editor
+      - python3.12
       - screen
+      - sshpass
+      - uv
       - zsh-autosuggestions
       - zsh-syntax-highlighting
-      - libxml2 # Ansible requirement
-      - libxslt # Ansible requirement
-      - sshpass
-      - python3.12
-      - microsoft-edge-stable
     optfix:
       - microsoft
 
