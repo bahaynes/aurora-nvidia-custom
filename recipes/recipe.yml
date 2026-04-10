@@ -18,30 +18,42 @@ modules:
       - source: system      # copies files/system/ into your image's /.
         destination: /      # put configuration files you want in /etc/ on a booted system
 
-  - type: rpm-ostree
+  - type: dnf
     repos:
-      - microsoft-edge.repo
+      files:
+        # Add the Microsoft Edge repository
+        add:
+          - microsoft-edge.repo
+        # Remove repos inherited from the base image that are blocked by the firewall
+        remove:
+          - negativo17-fedora-multimedia
+          - rpmfusion-free
+          - rpmfusion-free-updates
+          - rpmfusion-nonfree
+          - rpmfusion-nonfree-updates
     install:
-      - ccid
-      - firefox
-      - git
-      - git-credential-libsecret
-      - git-lfs
-      - libxml2 # Ansible requirement
-      - libxslt # Ansible requirement
-      - microsoft-edge-stable
-      - nm-connection-editor
-      - opensc
-      - pcsc-lite
-      - pcsc-tools
-      - python3.12
-      - screen
-      - sshpass
-      - uv
-      - zsh-autosuggestions
-      - zsh-syntax-highlighting
-    optfix:
-      - microsoft
+      packages:
+        # Development headers to compile Python packages like lxml
+        - libxml2-devel
+        - libxslt-devel
+        - python3-devel
+        # User-requested packages
+        - ccid
+        - firefox
+        - git
+        - git-credential-libsecret
+        - git-lfs
+        - microsoft-edge-stable
+        - nm-connection-editor
+        - opensc
+        - pcsc-lite
+        - pcsc-tools
+        - python3.12
+        - screen
+        - sshpass
+        - uv
+        - zsh-autosuggestions
+        - zsh-syntax-highlighting
 
   - type: bling
     install:
