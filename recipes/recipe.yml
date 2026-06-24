@@ -45,6 +45,8 @@ modules:
         - git-lfs
         - microsoft-edge-stable
         - nm-connection-editor
+        - nodejs
+        - npm
         - opensc
         - pcsc-lite
         - pcsc-tools
