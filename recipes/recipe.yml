@@ -15,16 +15,15 @@ image-version: stable # latest is also supported if you want new updates ASAP
 modules:
   - type: files
     files:
-      - source: system      # copies files/system/ into your image's /.
-        destination: /      # put configuration files you want in /etc/ on a booted system
+      - source: system
+        destination: /
 
   - type: dnf
     repos:
       files:
-        # Add the Microsoft Edge repository
         add:
           - microsoft-edge.repo
-        # Remove repos inherited from the base image that are blocked by the firewall
+          - 1password.repo
         remove:
           - negativo17-fedora-multimedia
           - rpmfusion-free
@@ -33,11 +32,11 @@ modules:
           - rpmfusion-nonfree-updates
     install:
       packages:
-        # Development headers to compile Python packages like lxml
         - libxml2-devel
         - libxslt-devel
         - python3-devel
-        # User-requested packages
+        - 1password
+        - 1password-cli
         - ccid
         - firefox
         - git
@@ -61,29 +60,22 @@ modules:
     configurations:
     - scope: user
       repo:
-        # you can override the title to make inclusion of both system and user repos clearer
         title: Flathub (user)
     - notify: true
       scope: system
       repo:
         title: Flathub (system)
-      install: # system flatpaks we want all users to have and not remove    install:
+      install:
         - org.kde.okular
         - org.kde.kile
         - org.kde.kdenlive
         - org.kde.isoimagewriter
         - org.openrgb.OpenRGB
-        # - one.ablaze.floorp//lightning # This is an example of flatpak which has multiple branches in selection (flatpak//branch).
-      # Flatpak runtimes are not supported (like org.winehq.Wine//stable-23.08),
-      # only normal flatpak applications are (like Floorp Lightning web browser in this example).
-      # Installing different branches of the same Flatpak is not supported.
-      # remove:
-      # # - org.gnome.eog
 
   - type: fonts
     fonts:
       nerd-fonts:
-        - FiraCode # don't add spaces or "Nerd Font" suffix.
+        - FiraCode
         - Hack
         - SourceCodePro
         - Terminus
@@ -98,8 +90,4 @@ modules:
       enabled:
         - podman.socket
 
-  - type: bling
-    install:
-      - 1password
-
-  - type: signing # this sets up the proper policy & signing files for signed images to work fully
+  - type: signing
