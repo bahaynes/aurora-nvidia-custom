@@ -43,6 +43,7 @@ modules:
         - git-credential-libsecret
         - git-lfs
         - microsoft-edge-stable
+        - nss-tools
         - nm-connection-editor
         - nodejs
         - npm
