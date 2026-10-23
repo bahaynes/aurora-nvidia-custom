@@ -44,6 +44,8 @@ modules:
         - git-lfs
         - microsoft-edge-stable
         - nss-tools
+        - nix
+        - nix-daemon
         - nm-connection-editor
         - nodejs
         - npm
@@ -87,6 +89,10 @@ modules:
         - Open Sans
 
   - type: systemd
+    system:
+      enabled:
+        - nix.mount
+        - nix-daemon.service
     user:
       enabled:
         - podman.socket

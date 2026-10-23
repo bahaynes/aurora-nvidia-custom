@@ -1,0 +1,15 @@
+[Unit]
+Description=Persistent Nix store
+DefaultDependencies=no
+After=systemd-tmpfiles-setup.service
+Before=nix-daemon.service umount.target
+Conflicts=umount.target
+
+[Mount]
+What=/var/lib/nix
+Where=/nix
+Type=none
+Options=bind
+
+[Install]
+WantedBy=multi-user.target
