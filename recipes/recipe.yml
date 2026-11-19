@@ -48,7 +48,7 @@ modules:
         - nix-daemon
         - nm-connection-editor
         - nodejs
-        - npm
+        - nodejs-npm
         - opensc
         - pcsc-lite
         - pcsc-tools
@@ -83,7 +83,6 @@ modules:
         - SourceCodePro
         - Terminus
         - JetBrainsMono
-        - NerdFontsSymbolsOnly
       google-fonts:
         - Roboto
         - Open Sans
