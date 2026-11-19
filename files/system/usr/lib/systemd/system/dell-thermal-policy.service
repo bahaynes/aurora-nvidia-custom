@@ -1,0 +1,11 @@
+[Unit]
+Description=Apply Dell CPU thermal policy
+Wants=systemd-modules-load.service
+After=systemd-modules-load.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/bash /usr/libexec/dell-thermal-policy
+
+[Install]
+WantedBy=multi-user.target

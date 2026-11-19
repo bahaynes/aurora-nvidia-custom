@@ -1,0 +1,2 @@
+# Favor lower sustained power use when each CPU policy becomes available.
+ACTION=="add", SUBSYSTEM=="cpu", ATTR{cpufreq/energy_performance_preference}="balance_power"

@@ -1,0 +1,25 @@
+#!/usr/bin/bash
+
+rapl_path=/sys/class/powercap/intel-rapl:0
+profile_path=/sys/firmware/acpi/platform_profile
+
+# RAPL devices can appear after the initial tmpfiles pass, so retry briefly.
+for _ in {1..10}; do
+  if [[ -w "$rapl_path/constraint_0_power_limit_uw" && -w "$rapl_path/constraint_1_power_limit_uw" ]]; then
+    printf '%s' 35000000 >"$rapl_path/constraint_0_power_limit_uw"
+    printf '%s' 55000000 >"$rapl_path/constraint_1_power_limit_uw"
+    break
+  fi
+
+  sleep 1
+done
+
+if [[ -w "$profile_path" ]]; then
+  printf '%s' balanced >"$profile_path"
+fi
+
+for epp_path in /sys/devices/system/cpu/cpu*/cpufreq/energy_performance_preference; do
+  if [[ -w "$epp_path" ]]; then
+    printf '%s' balance_power >"$epp_path"
+  fi
+done
