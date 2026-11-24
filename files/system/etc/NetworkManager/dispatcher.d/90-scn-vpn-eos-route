@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+device="$1"
+action="$2"
+
+# Route only the SCN gateway over the Eos hotspot. The normal default route
+# remains on the preferred connection, such as SCNLocal Ethernet.
+[[ "${CONNECTION_ID:-}" == "Eos" ]] || exit 0
+
+case "$action" in
+    up|dhcp4-change)
+        gateway=""
+        while read -r destination via candidate_gateway _; do
+            if [[ "$destination" == "default" && "$via" == "via" ]]; then
+                gateway="$candidate_gateway"
+                break
+            fi
+        done < <(/usr/sbin/ip -4 route show default dev "$device")
+
+        [[ -n "$gateway" ]] || exit 0
+        /usr/sbin/ip -4 route replace 140.32.11.253/32 via "$gateway" dev "$device" metric 50
+        ;;
+    down)
+        /usr/sbin/ip -4 route del 140.32.11.253/32 dev "$device" 2>/dev/null || true
+        ;;
+esac

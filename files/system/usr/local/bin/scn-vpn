@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# The CAC is exposed through OpenSC's PKCS#11 provider. Select the expected
+# CAC token rather than accepting another token the provider may enumerate.
+token_label=""
+while IFS= read -r token_url; do
+    if [[ "$token_url" == *'manufacturer=Common%20Access%20Card'* ]]; then
+        token_label="$token_url"
+        break
+    fi
+done < <(p11tool --provider /usr/lib64/opensc-pkcs11.so --list-token-urls 2>/dev/null)
+
+if [[ -z "$token_label" ]]; then
+    printf '%s\n' 'No compatible Common Access Card token was detected. Insert the CAC and retry.' >&2
+    exit 1
+fi
+
+# OpenConnect needs elevated privileges only to create and configure the tunnel.
+# CAC object 05 is the ID certificate with TLS Web Client Authentication.
+exec sudo /usr/bin/openconnect \
+    --config /etc/openconnect/scn-cac.conf \
+    --certificate "${token_label};id=%00%05;type=cert" \
+    --sslkey "${token_label};id=%00%05;type=private"
