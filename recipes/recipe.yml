@@ -59,6 +59,11 @@ modules:
         - zsh-autosuggestions
         - zsh-syntax-highlighting
 
+  # The 1Password CLI desktop integration requires the packaged op permissions.
+  - type: script
+    scripts:
+      - normalize-1password-cli.sh
+
   - type: default-flatpaks
     configurations:
     - scope: user
