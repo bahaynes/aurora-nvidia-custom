@@ -1,14 +1,18 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Keep the CLI and desktop integration helpers aligned with their RPM metadata.
-# Altered ownership or setgid bits make the desktop app reject authenticated IPC
-# connections from op.
-rpm --restore 1password 1password-cli
+# 1Password verifies the CLI's GID on its Unix socket. The CLI must run with
+# the onepassword-cli group via its setgid bit; RPM metadata alone does not
+# preserve that post-install requirement in the composed image.
+if ! getent group onepassword-cli >/dev/null; then
+  printf 'required onepassword-cli group is missing\n' >&2
+  exit 1
+fi
 
-if rpm -V 1password 1password-cli \
-  | grep -E '^[^[:space:]]*[MUG][^[:space:]]*[[:space:]]+' \
-  | grep -qE '[[:space:]](/usr/bin/op|/opt/1Password/(1password|1Password-BrowserSupport|1password-mcp|chrome-sandbox))$'; then
-  printf '1Password integration helper metadata verification failed\n' >&2
+chown root:onepassword-cli /usr/bin/op
+chmod 2755 /usr/bin/op
+
+if [[ "$(stat -c '%U:%G:%a' /usr/bin/op)" != 'root:onepassword-cli:2755' ]]; then
+  printf '1Password CLI metadata verification failed\n' >&2
   exit 1
 fi
